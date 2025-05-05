@@ -5,7 +5,7 @@ export const portfolioData = {
   // Informações Pessoais e Links Sociais
   name: "EMANUEL ADEILTON MORAIS ARAÚJO",
   title: "Analista de Segurança | SOC | Cibersegurança",
-  githubUrl: "#", // Placeholder
+  githubUrl: "https://github.com/Manelrx", // Placeholder
   linkedinUrl: "https://www.linkedin.com/in/emanuelmaraujo/",
 
   professionalSummary:
@@ -106,7 +106,7 @@ export const portfolioData = {
       institution: "Cisco Networking Academy",
       year: "2024", // Concluído Nov/2024
       description: "Curso sobre segurança de endpoints (60h). Concluído em Nov/2024.",
-      image: "badges/Endpoint_security.png", // Usando a badge como imagem por enquanto
+      image: "certificates/Endpoint_security.png", // Usando a badge como imagem por enquanto
       link: "https://www.credly.com/badges/e4039c04-39c5-47dd-a1fb-47d77e7961ec/public_url"
     },
     {
@@ -122,7 +122,7 @@ export const portfolioData = {
       institution: "DIO / Santander",
       year: "2025", // Concluído Jan/2025
       description: "Bootcamp focado em cibersegurança (28h). Concluído em Jan/2025.",
-      image: "Santander BootCamp Cibersguranca.png",
+      image: "certificates/Santander BootCamp Cibersguranca.png",
       link: "#" // Adicionar link se disponível
     },
     {

@@ -83,7 +83,7 @@ const Navbar = () => {
         {/* Logo ou Nome - Link para a Home (Next Link lida com basePath) */}
         <div className="text-xl font-bold">
           <Link href="/" className="gradient-text">
-            Seu Nome
+            Emanuel Araújo
           </Link>
         </div>
 
