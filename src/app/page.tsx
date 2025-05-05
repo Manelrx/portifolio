@@ -101,7 +101,7 @@ export default function Home() {
 
       {/* Footer Section */}
       <footer className="w-full bg-card text-foreground/70 p-6 text-center mt-16 border-t border-border">
-        <p>© {new Date().getFullYear()} {portfolioData.name || 'Seu Nome Aqui'}. Todos os direitos reservados.</p>
+        <p>© {new Date().getFullYear()} {portfolioData.name || 'Emanuel Araújo'}. Todos os direitos reservados.</p>
       </footer>
     </main>
   );

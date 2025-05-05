@@ -78,7 +78,7 @@ const Navbar = () => {
         {/* Logo ou Nome - Link para a Home */}
         <div className="text-xl font-bold">
           <Link href="/" className="gradient-text">
-            Seu Nome
+            Emanuel Araújo
           </Link>
         </div>
 
@@ -88,7 +88,7 @@ const Navbar = () => {
             <li key={item.href}>
               {item.type === 'anchor' ? (
                 <a
-                  href={`/${item.href}`} // Garante que âncoras funcionem a partir de outras páginas
+                  href={item.href} // Remove a barra inicial para deixar o Next.js/basePath lidar com o prefixo
                   onClick={(e) => {
                     // Se já estiver na home, scroll suave
                     if (window.location.pathname === '/') {
@@ -137,7 +137,7 @@ const Navbar = () => {
             <li key={item.href}>
               {item.type === 'anchor' ? (
                 <a
-                  href={`/${item.href}`}
+                  href={item.href} // Remove a barra inicial para deixar o Next.js/basePath lidar com o prefixo
                   onClick={(e) => {
                     if (window.location.pathname === '/') {
                       e.preventDefault();
