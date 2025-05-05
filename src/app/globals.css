@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Define a fonte principal (Inter já está no projeto via layout.tsx) */
+/* Você pode adicionar uma fonte mono aqui se precisar para código */
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap'); */
+
+@layer base {
+  :root {
+    /* Tema Claro (Futurista Suave) - Mantido como opção, mas focaremos no escuro */
+    --radius: 0.5rem;
+    --background-light: 220 20% 98%; /* Branco quase puro */
+    --foreground-light: 225 10% 10%; /* Cinza escuro */
+    --card-light: 220 20% 100%; /* Branco */
+    --card-foreground-light: 225 10% 10%;
+    --popover-light: 220 20% 100%;
+    --popover-foreground-light: 225 10% 10%;
+    --primary-light: 217 91% 60%; /* Azul vibrante */
+    --primary-foreground-light: 0 0% 100%; /* Branco */
+    --secondary-light: 210 15% 96%; /* Cinza muito claro */
+    --secondary-foreground-light: 225 10% 10%;
+    --muted-light: 210 15% 96%;
+    --muted-foreground-light: 215 15% 45%; /* Cinza médio */
+    --accent-light: 210 15% 90%; /* Cinza claro */
+    --accent-foreground-light: 225 10% 10%;
+    --destructive-light: 0 84% 60%;
+    --destructive-foreground-light: 0 0% 100%;
+    --border-light: 215 20% 90%; /* Borda cinza clara */
+    --input-light: 215 20% 90%;
+    --ring-light: 217 91% 60%; /* Azul vibrante para foco */
+
+    /* Tema Escuro (Futurista Principal) */
+    --radius: 0.5rem;
+    --background: 225 15% 12%; /* Azul muito escuro / quase preto */
+    --foreground: 210 15% 96%; /* Branco levemente azulado, mais claro */
+    --card: 225 15% 18%; /* Azul escuro um pouco mais claro */
+    --card-foreground: 210 15% 96%; /* Consistent with main foreground */
+    --popover: 225 15% 12%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 217 91% 60%; /* Azul elétrico vibrante */
+    --primary-foreground: 210 20% 98%; /* Branco quase puro */
+    --secondary: 217 30% 25%; /* Azul acinzentado escuro */
+    --secondary-foreground: 210 20% 95%;
+    --muted: 217 30% 25%;
+    --muted-foreground: 215 20% 75%; /* Cinza mais claro para melhor contraste */
+    --accent: 217 91% 60%; /* Azul elétrico para destaque */
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 70% 55%; /* Vermelho vibrante */
+    --destructive-foreground: 210 20% 98%;
+    --border: 217 30% 30%; /* Borda azul acinzentada */
+    --input: 217 30% 30%;
+    --ring: 217 91% 70%; /* Azul elétrico mais claro para foco */
+
+    /* Cores de Gráfico (Exemplo) */
+    --chart-1: 217 91% 60%;
+    --chart-2: 180 80% 45%; /* Ciano/Verde */
+    --chart-3: 280 75% 60%; /* Roxo */
+    --chart-4: 0 80% 65%;   /* Vermelho/Laranja */
+    --chart-5: 50 90% 55%;  /* Amarelo/Dourado */
+  }
+
+  /* Define o tema escuro como padrão - remova a classe .dark se quiser claro por padrão */
+  /* Ou use um seletor de tema */
+  /* html {
+    color-scheme: dark;
+  } */
+
+  /* Aplica as variáveis do tema escuro diretamente */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    /* font-family: 'Inter', sans-serif; */ /* Inter já está no layout.tsx */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  /* body já estilizado acima */
+}
+
+/* Estilos adicionais para um toque futurista */
+@layer components {
+  .glassmorphism-card {
+    @apply bg-card/70 backdrop-blur-md border border-border/30 rounded-lg shadow-lg;
+  }
+  .glow-on-hover {
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_5px_hsl(var(--primary)/0.4)];
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+}
+
+
+/* Adiciona estilos base para Embla Carousel */
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  position: relative;
+  /* flex: 0 0 100%; */ /* O flex-basis será definido nos componentes */
+  min-width: 0;
+}
+
+/* Estilos adicionais para um toque futurista */
+@layer components {
+  .glassmorphism-card {
+    @apply bg-card/70 backdrop-blur-md border border-border/30 rounded-lg shadow-lg;
+  }
+  /* Ajuste no glow para ser um pouco mais sutil */
+  .glow-on-hover {
+    @apply transition-all duration-300 hover:shadow-[0_0_12px_3px_hsl(var(--primary)/0.3)];
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+  /* Estilo para o modal (se precisar de ajustes específicos) */
+  .glassmorphism-modal {
+     @apply bg-card/80 backdrop-blur-lg border border-border/50 shadow-2xl;
+  }
+}
+

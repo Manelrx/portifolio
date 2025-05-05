@@ -1,17 +1,16 @@
 /** @type {import("next").NextConfig} */
 
 // Define o nome do repositório para o basePath
-const repoName = "portifolio";
+const repoName = "portifolio"; // Descomentado para build estático
 
 const nextConfig = {
-  output: "export", // Necessário para exportação estática
-  basePath: `/${repoName}`, // Define o subdiretório para GitHub Pages
-  assetPrefix: `/${repoName}/`, // Garante que os assets também usem o basePath
+  output: "export", // Descomentado para build estático
+  basePath: `/${repoName}`, // Descomentado para build estático
+  assetPrefix: `/${repoName}/`, // Descomentado para build estático
   reactStrictMode: true,
   images: {
     // Desabilita a otimização de imagens do Next.js, pois não funciona com exportação estática sem configuração adicional
     unoptimized: true,
-    // Configuração de remotePatterns mantida, mas a otimização está desabilitada
     remotePatterns: [
       {
         protocol: "https",
