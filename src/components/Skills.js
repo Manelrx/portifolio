@@ -25,8 +25,9 @@ const Skills = ({ skills }) => {
       id="skills"
       className="py-12 md:py-16 bg-card w-full" // Fundo do card
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      // Remove whileInView e viewport, anima diretamente na montagem
+      animate="visible"
+      // viewport={{ once: true, amount: 0.2 }} // Removido
       transition={{ duration: 0.6, ease: "easeOut" }}
       variants={sectionVariants}
     >
@@ -74,3 +75,4 @@ const Skills = ({ skills }) => {
 };
 
 export default Skills;
+
