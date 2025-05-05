@@ -12,6 +12,48 @@ export const portfolioData = {
     "Profissional de Tecnologia da Informação com mais de 3 anos de experiência em suporte e infraestrutura, direcionando a carreira para Segurança da Informação. Possuo experiência prática em administração de EDR, gestão de identidades e acessos (IAM), análise e tratamento de vulnerabilidades, suporte à resposta a incidentes e implementação de controles de segurança em ambiente corporativo. Pós-graduando em Segurança da Informação (conclusão em Jun/2025) e com certificação Fortinet Fundamentals. Busco oportunidade como Analista de Segurança da Informação, Analista de SOC ou Analista de Cibersegurança para aplicar e aprofundar meus conhecimentos na proteção de ativos digitais.",
   profileImage: "minha_imagem_de_apresentacao.png",
 
+  graduation: [
+    {
+      degree: "Pós graduação em Segurança da Informação",
+      institution: "Faculdade Focus",
+      period: "Conclusão em Jun/2025",
+      description: "Aprofundamento em segurança da informação, com foco em gestão de riscos, compliance e proteção de dados.",
+      responsibilities: [
+        "Estudo de normas e regulamentações de segurança da informação, como ISO 27001 e LGPD.",
+        "Desenvolvimento de projetos práticos em segurança da informação, incluindo análise de riscos e auditorias.",
+        "Participação em grupos de pesquisa e discussões sobre tendências e desafios na área de segurança da informação.",
+        "Desenvolvimento de habilidades em gerenciamento de projetos e liderança em segurança da informação.",
+        "Participação em eventos e workshops relacionados à segurança da informação e cibersegurança.",
+        "Aprofundamento em técnicas de resposta a incidentes e gestão de crises em segurança da informação.",
+        "Desenvolvimento de habilidades em comunicação e apresentação de resultados em segurança da informação.",
+        "Participação em atividades práticas de laboratório, incluindo simulações de incidentes e testes de segurança.",
+        "Desenvolvimento de habilidades em pesquisa e análise crítica de artigos e publicações na área de segurança da informação.",
+      ],  
+    },
+    {
+
+      degree: "Graduação em Ciência da Computação",
+      institution: "Universidade Paulista (UNIP)",
+      period: "Concluído em 2023",
+      description: "Formação sólida em ciência da computação, com foco em desenvolvimento de software, redes e segurança da informação.",
+      responsibilities: [
+        "Desenvolvimento de projetos acadêmicos em diversas linguagens de programação.",
+        "Participação em atividades práticas de laboratório, incluindo configuração de redes e segurança.",
+        "Trabalho em equipe em projetos de software, promovendo habilidades de colaboração e comunicação.",
+        "Participação em eventos e workshops relacionados à tecnologia e segurança da informação.",
+        "Desenvolvimento de habilidades analíticas e resolução de problemas através de estudos de caso e projetos práticos.",
+        "Aprofundamento em conceitos de segurança da informação, incluindo criptografia, autenticação e controle de acesso.",
+        "Participação em grupos de estudo e discussões sobre tendências e desafios na área de segurança da informação.",
+        "Desenvolvimento de habilidades em pesquisa e apresentação de trabalhos acadêmicos.",
+        "Desenvolvimento de habilidades em gerenciamento de tempo e organização através de prazos acadêmicos.",
+        "Desenvolvimento de habilidades em liderança e trabalho em equipe através de projetos colaborativos.",
+        "Participação em eventos de networking e palestras com profissionais da área de tecnologia.",
+      ],
+    
+    },
+
+  ],
+  
   experience: [
     {
       role: "Assistente de Informática",

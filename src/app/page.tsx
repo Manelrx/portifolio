@@ -5,6 +5,7 @@ import { portfolioData } from '../data/portfolioData.js'; // Certifique-se que o
 
 import ProfessionalSummary from '../components/ProfessionalSummary';
 import ProfileImage from '../components/ProfileImage';
+import Graduation from '../components/graduation';
 import Experience from '../components/Experience';
 import Skills from '../components/Skills';
 import Courses from '../components/Courses';
@@ -81,6 +82,9 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      {/* Graduation Section - Animação já no componente */}
+      <Graduation items={portfolioData.graduation} />
 
       {/* Experience Section - Animação já no componente */}
       <Experience items={portfolioData.experience} />
