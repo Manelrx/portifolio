@@ -1,12 +1,9 @@
-// /home/ubuntu/portfolio-profissional/src/app/projetos/[slug]/page.tsx
-// Adaptado de /src/app/blog/[slug]/page.tsx
 import Link from "next/link";
 import { MotionDiv } from "@/components/client/motion-div";
 import { Calendar, User, ArrowLeft, ExternalLink, Code } from "lucide-react";
 import { getProjetoData, getAllProjetoIds } from "@/lib/projetos"; // Importa as funções corretas
 import { notFound } from "next/navigation";
 
-// Tipagem para os dados do projeto
 interface ProjetoData {
   slug: string;
   title: string;

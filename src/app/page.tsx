@@ -1,8 +1,6 @@
-"use client"; // Adicionado para permitir o uso de motion
+"use client";
 
-// /home/ubuntu/portfolio-profissional/src/app/page.tsx
 import React from 'react';
-// Restaura a importação original dos dados
 import { portfolioData } from '../data/portfolioData.js'; // Certifique-se que o caminho e extensão estão corretos
 
 import ProfessionalSummary from '../components/ProfessionalSummary';

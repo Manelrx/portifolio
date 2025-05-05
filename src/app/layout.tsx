@@ -1,9 +1,9 @@
-// /home/ubuntu/portfolio-profissional/src/app/layout.tsx
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navbar from "../components/Navbar"; // Importa o novo componente Navbar
+import Navbar from "../components/Navbar"; 
 import "./globals.css";
-// import "react-image-gallery/styles/css/image-gallery.css"; // CSS removido pois a biblioteca foi substituída
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +18,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Removido comentário e espaço em branco daqui para corrigir erro de hidratação
     <html lang="pt-BR" className="scroll-smooth">
       {/* A tag <head> é adicionada automaticamente pelo Next.js */}
       {/* Adiciona padding-top para compensar a altura do navbar fixo */}
