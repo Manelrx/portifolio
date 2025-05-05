@@ -55,7 +55,7 @@ export default function ProjetosPage() {
                 </h2>
                 <div className="flex items-center text-sm text-foreground/70 mb-3">
                   <Calendar className="w-4 h-4 mr-2" />
-                  <time dateTime={projeto.date}>{new Date(projeto.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric" })}</time>
+                  <time dateTime={projeto.date}>{new Date(projeto.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' })}</time>
                 </div>
                 {/* Exibe o resumo se disponível */}
                 {projeto.summary && (

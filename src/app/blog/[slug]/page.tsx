@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
             </div>
             <div className="flex items-center gap-1.5">
               <Calendar size={14} />
-              <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric" })}</time>
+              <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' })}</time>
             </div>
           </div>
           {post.tags && post.tags.length > 0 && (

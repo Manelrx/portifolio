@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MotionDiv } from "@/components/client/motion-div";
 import { Calendar, User, ArrowLeft, ExternalLink, Code } from "lucide-react";
-import { getProjetoData, getAllProjetoIds } from "@/lib/projetos";
+import { getProjetoData, getAllProjetoIds } from "@/lib/projetos"; // Importa as funções corretas
 import { notFound } from "next/navigation";
 
 // Tipagem para os dados do projeto
@@ -19,10 +19,21 @@ interface ProjetoData {
   repoUrl?: string;
 }
 
-// Função para gerar os caminhos estáticos
-export async function generateStaticParams() {
-  const paths = getAllProjetoIds();
-  return paths.map((path) => ({ slug: path.params.slug }));
+// Função para gerar os caminhos estáticos - CORRIGIDA
+// Deve retornar um array de objetos onde cada objeto tem a chave `slug`
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  console.log("Generating static params for projetos..."); // Log para depuração
+  try {
+    const paths = getAllProjetoIds(); // Isso retorna [{ params: { slug: '...' } }, ...]
+    console.log("Paths from getAllProjetoIds:", JSON.stringify(paths));
+    // Mapeia para o formato esperado: [{ slug: '...' }, ...]
+    const mappedPaths = paths.map((path) => ({ slug: path.params.slug }));
+    console.log("Mapped paths for generateStaticParams:", JSON.stringify(mappedPaths));
+    return mappedPaths;
+  } catch (error) {
+    console.error("Error in generateStaticParams:", error);
+    return []; // Retorna array vazio em caso de erro
+  }
 }
 
 // Função para buscar os dados do projeto específico
@@ -85,7 +96,7 @@ export default async function ProjetoPage({ params }: { params: any }) {
             </div>
             <div className="flex items-center gap-1.5">
               <Calendar size={14} />
-              <time dateTime={projeto.date}>{new Date(projeto.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric" })}</time>
+              <time dateTime={projeto.date}>{new Date(projeto.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' })}</time>
             </div>
           </div>
           {projeto.tags && projeto.tags.length > 0 && (
@@ -101,7 +112,8 @@ export default async function ProjetoPage({ params }: { params: any }) {
           {/* Links para o projeto online e repositório */}
           {(projeto.liveUrl || projeto.repoUrl) && (
             <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-border/30">
-              {projeto.liveUrl && projeto.liveUrl !== '#' && (
+              {projeto.liveUrl && projeto.liveUrl !== '#'
+                && (
                 <a
                   href={projeto.liveUrl}
                   target="_blank"
@@ -111,7 +123,8 @@ export default async function ProjetoPage({ params }: { params: any }) {
                   <ExternalLink size={16} /> Ver Projeto Online
                 </a>
               )}
-              {projeto.repoUrl && projeto.repoUrl !== '#' && (
+              {projeto.repoUrl && projeto.repoUrl !== '#'
+                && (
                 <a
                   href={projeto.repoUrl}
                   target="_blank"
@@ -128,7 +141,7 @@ export default async function ProjetoPage({ params }: { params: any }) {
           <div className="relative w-full h-64 md:h-80 mb-8 rounded-lg overflow-hidden bg-card/50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={projeto.image}
+              src={projeto.image} // Caminho relativo já tratado pelo assetPrefix
               alt={`Imagem do projeto ${projeto.title}`}
               className="w-full h-full object-cover"
             />
@@ -149,3 +162,4 @@ export default async function ProjetoPage({ params }: { params: any }) {
     </main>
   );
 }
+

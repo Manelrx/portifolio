@@ -68,7 +68,7 @@ export default function BlogPage() {
                 <div className="flex items-center text-sm text-foreground/70 mb-3">
                   <Calendar className="w-4 h-4 mr-2" />
                   {/* Formatar data continua sendo feito no cliente, mas o valor vem do servidor */}
-                  <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric" })}</time>
+                  <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' })}</time>
                 </div>
                 {/* Removido o sumário, pois não está nos dados retornados por getSortedPostsData */}
                 <Link href={`/blog/${post.id}`} className="text-primary hover:underline font-medium flex items-center">
