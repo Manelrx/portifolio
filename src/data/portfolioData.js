@@ -10,7 +10,7 @@ export const portfolioData = {
 
   professionalSummary:
     "Profissional de Tecnologia da Informação com mais de 3 anos de experiência em suporte e infraestrutura, direcionando a carreira para Segurança da Informação. Possuo experiência prática em administração de EDR, gestão de identidades e acessos (IAM), análise e tratamento de vulnerabilidades, suporte à resposta a incidentes e implementação de controles de segurança em ambiente corporativo. Pós-graduando em Segurança da Informação (conclusão em Jun/2025) e com certificação Fortinet Fundamentals. Busco oportunidade como Analista de Segurança da Informação, Analista de SOC ou Analista de Cibersegurança para aplicar e aprofundar meus conhecimentos na proteção de ativos digitais.",
-  profileImage: "/minha_imagem_de_apresentacao.png",
+  profileImage: "minha_imagem_de_apresentacao.png",
 
   experience: [
     {
@@ -74,7 +74,7 @@ export const portfolioData = {
       institution: "RNP/SENAC/Softex",
       year: "2024", // Concluído Dez/2024
       description: "Módulo Fundamental do programa Hackers do Bem (96h). Concluído em Dez/2024.",
-      image: "/certificates/hackers_do_bem_fundamento.png",
+      image: "certificates/hackers_do_bem_fundamento.png",
       link: "#" // Adicionar link se disponível
     },
     {
@@ -82,7 +82,7 @@ export const portfolioData = {
       institution: "RNP/SENAC/Softex",
       year: "2024", // Concluído Ago/2024
       description: "Módulo Básico do programa Hackers do Bem (64h). Concluído em Ago/2024.",
-      image: "/certificates/hackers_do_bem_basico.png",
+      image: "certificates/hackers_do_bem_basico.png",
       link: "#" // Adicionar link se disponível
     },
     {
@@ -90,7 +90,7 @@ export const portfolioData = {
       institution: "RNP/SENAC/Softex",
       year: "2024", // Concluído Jun/2024
       description: "Módulo de Nivelamento do programa Hackers do Bem (80h). Concluído em Jun/2024.",
-      image: "/certificates/hackers_do_bem_nivelamento.png",
+      image: "certificates/hackers_do_bem_nivelamento.png",
       link: "#" // Adicionar link se disponível
     },
     {
@@ -98,7 +98,7 @@ export const portfolioData = {
       institution: "SENAI-SC/CDI (Cisco Networking Academy)",
       year: "2024", // Concluído Dez/2024
       description: "Curso introdutório sobre redes de computadores (80h). Concluído em Dez/2024.",
-      image: "/certificates/ccna_modulo1.jpg",
+      image: "certificates/ccna_modulo1.jpg",
       link: "https://www.credly.com/badges/59101be6-3e45-4d6e-a48f-358d95ffd538/public_url"
     },
     {
@@ -106,7 +106,7 @@ export const portfolioData = {
       institution: "Cisco Networking Academy",
       year: "2024", // Concluído Nov/2024
       description: "Curso sobre segurança de endpoints (60h). Concluído em Nov/2024.",
-      image: "/badges/Endpoint_security.png", // Usando a badge como imagem por enquanto
+      image: "badges/Endpoint_security.png", // Usando a badge como imagem por enquanto
       link: "https://www.credly.com/badges/e4039c04-39c5-47dd-a1fb-47d77e7961ec/public_url"
     },
     {
@@ -114,7 +114,7 @@ export const portfolioData = {
       institution: "CNAC",
       year: "2024", // Concluído Nov/2024
       description: "Treinamento sobre resiliência cibernética, privacidade de dados e frameworks (16h). Concluído em Nov/2024.",
-      image: "/certificates/Certificado Resiliencia Cibernetica e Privacidade de Dados.png",
+      image: "certificates/Certificado Resiliencia Cibernetica e Privacidade de Dados.png",
       link: "#" // Adicionar link se disponível
     },
     {
@@ -122,7 +122,7 @@ export const portfolioData = {
       institution: "DIO / Santander",
       year: "2025", // Concluído Jan/2025
       description: "Bootcamp focado em cibersegurança (28h). Concluído em Jan/2025.",
-      image: "/Santander BootCamp Cibersguranca.png",
+      image: "Santander BootCamp Cibersguranca.png",
       link: "#" // Adicionar link se disponível
     },
     {
@@ -130,7 +130,7 @@ export const portfolioData = {
       institution: "Microsoft",
       year: "2025", // Concluído Abr/2025
       description: "Treinamento fundamental do programa Student SOC da Microsoft. Concluído em Abr/2025.",
-      image: "/certificates/Student SOC Program Foundations training.png",
+      image: "certificates/Student SOC Program Foundations training.png",
       link: "#" // Adicionar link se disponível
     },
     {
@@ -147,43 +147,43 @@ export const portfolioData = {
   badges: [
     {
       name: "CCNA: Introduction to Networks",
-      image: "/badges/ccna-introduction-to-networks.png",
+      image: "badges/ccna-introduction-to-networks.png",
       url: "https://www.credly.com/badges/59101be6-3e45-4d6e-a48f-358d95ffd538/public_url",
       description: "Badge do curso CCNA: Introduction to Networks da Cisco Networking Academy."
     },
     {
       name: "Endpoint Security",
-      image: "/badges/endpoint-security.png",
+      image: "badges/endpoint-security.png",
       url: "https://www.credly.com/badges/e4039c04-39c5-47dd-a1fb-47d77e7961ec/public_url",
       description: "Badge do curso Endpoint Security da Cisco Networking Academy."
     },
     {
       name: "Fortinet Certified Fundamentals Cybersecurity",
-      image: "/badges/fortinet-certified-fundamentals-cybersecurity.png",
+      image: "badges/fortinet-certified-fundamentals-cybersecurity.png",
       url: "https://www.credly.com/badges/a692655c-e6e6-4f24-90cf-905ea99793b9/public_url",
       description: "Badge da certificação Fortinet Certified Fundamentals Cybersecurity."
     },
     {
       name: "Getting Started in Cybersecurity 2.0",
-      image: "/badges/getting-started-in-cybersecurity-2-0.png",
+      image: "badges/getting-started-in-cybersecurity-2-0.png",
       url: "https://www.credly.com/badges/85419a43-27a7-4edf-975e-a8cd91cd1d72/public_url",
       description: "Badge do exame Fortinet NSE: Getting Started in Cybersecurity v2.0."
     },
     {
       name: "Introduction to the Threat Landscape 2.0",
-      image: "/badges/introduction-to-the-threat-landscape-2-0.png",
+      image: "badges/introduction-to-the-threat-landscape-2-0.png",
       url: "https://www.credly.com/badges/fc4fd540-6521-432b-adce-d1ce2ed870ee/public_url",
       description: "Badge do exame Fortinet NSE: Introduction to the Threat Landscape v2.0."
     },
     {
       name: "ISC2 Candidate",
-      image: "/badges/isc2-candidate.png",
+      image: "badges/isc2-candidate.png",
       url: "https://www.credly.com/badges/d94e4db4-509a-4adb-8b82-5132c9ca4409/public_url",
       description: "Badge de Candidato ISC2."
     },
     {
       name: "Networking Academy Learn-A-Thon 2024",
-      image: "/badges/networking-academy-learn-a-thon-2024.png",
+      image: "badges/networking-academy-learn-a-thon-2024.png",
       url: "https://www.credly.com/badges/68a765a6-449a-40cc-a79d-bab2e626f4d2/public_url",
       description: "Badge de participação no Cisco Networking Academy Learn-A-Thon 2024."
     }
@@ -195,7 +195,7 @@ export const portfolioData = {
       title: "Fortinet Certified Fundamentals Cybersecurity",
       issuer: "Fortinet",
       date: "Abr/2025 (Válida até Abr/2027)",
-      image: "/certificates/Fortinet Certified Fundamentals in Cybersecurity.png", // Caminho para a imagem do certificado
+      image: "certificates/Fortinet Certified Fundamentals in Cybersecurity.png", // Caminho para a imagem do certificado
       description: "Certificação que valida conhecimentos fundamentais em cibersegurança e no portfólio de produtos Fortinet.",
       url: "https://training.fortinet.com/admin/tool/certificate/index.php" // Link de validação do certificado
     },
