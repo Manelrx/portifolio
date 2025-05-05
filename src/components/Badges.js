@@ -18,7 +18,7 @@ const sectionVariants = {
 };
 
 const Badges = ({ items }) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start', containScroll: 'trimSnaps' }, [Autoplay({ delay: 4000, stopOnInteraction: true })]);
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start', containScroll: 'trimSnaps' }, [Autoplay({ delay: 4000, stopOnInteraction: false })]); // Alterado stopOnInteraction para false
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openModal = useCallback((item) => {

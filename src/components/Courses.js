@@ -18,7 +18,7 @@ const sectionVariants = {
 };
 
 const Courses = ({ items }) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start', containScroll: 'trimSnaps' }, [Autoplay({ delay: 5000, stopOnInteraction: true })]);
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start', containScroll: 'trimSnaps' }, [Autoplay({ delay: 5000, stopOnInteraction: false })]); // Alterado stopOnInteraction para false
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openModal = useCallback((item) => {
