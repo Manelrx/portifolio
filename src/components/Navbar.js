@@ -9,6 +9,9 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
+  // Define o basePath explicitamente para uso nos links
+  const basePath = '/portifolio';
+
   const navItems = [
     // Links da página inicial (âncoras)
     { id: 'summary', href: '#summary', label: 'Resumo', type: 'anchor' },
@@ -17,7 +20,7 @@ const Navbar = () => {
     { id: 'courses', href: '#courses', label: 'Cursos', type: 'anchor' },
     { id: 'badges', href: '#badges', label: 'Badges', type: 'anchor' },
     { id: 'certifications', href: '#certifications', label: 'Certificações', type: 'anchor' },
-    // Links para as novas páginas
+    // Links para as novas páginas (Next.js Link deve lidar com basePath automaticamente)
     { id: 'projects', href: '/projetos', label: 'Projetos', type: 'page' },
     { id: 'blog', href: '/blog', label: 'Blog', type: 'page' },
   ];
@@ -47,9 +50,11 @@ const Navbar = () => {
       if (scrollPosition < (firstSection?.offsetTop ?? offset) - offset) {
         currentSection = '';
       }
-      // Só atualiza o activeSection se estivermos na página inicial (path === '/')
-      // Isso evita que o scrollspy tente ativar links em outras páginas
-      if (window.location.pathname === '/') {
+
+      // Verifica se estamos na página inicial considerando o basePath
+      const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
+
+      if (isHomePage) {
         setActiveSection(currentSection);
       } else {
         setActiveSection(''); // Desativa scrollspy em outras páginas
@@ -75,10 +80,10 @@ const Navbar = () => {
   return (
     <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-md shadow-lg' : 'bg-transparent shadow-none'}`}>
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo ou Nome - Link para a Home */}
+        {/* Logo ou Nome - Link para a Home (Next Link lida com basePath) */}
         <div className="text-xl font-bold">
           <Link href="/" className="gradient-text">
-            Emanuel Araújo
+            Seu Nome
           </Link>
         </div>
 
@@ -88,14 +93,15 @@ const Navbar = () => {
             <li key={item.href}>
               {item.type === 'anchor' ? (
                 <a
-                  href={item.href} // Remove a barra inicial para deixar o Next.js/basePath lidar com o prefixo
+                  href={`${basePath}${item.href}`} // Adiciona basePath explicitamente ao href
                   onClick={(e) => {
-                    // Se já estiver na home, scroll suave
-                    if (window.location.pathname === '/') {
+                    // Verifica se estamos na página inicial considerando o basePath
+                    const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
+                    if (isHomePage) {
                       e.preventDefault();
                       document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
                     }
-                    // Se não estiver na home, o link normal levará para home/#ancora
+                    // Se não estiver na home, o link normal levará para /portifolio/#ancora
                   }}
                   className={`transition duration-300 font-medium pb-1 ${activeSection === item.id
                       ? 'text-primary border-b-2 border-primary'
@@ -104,7 +110,7 @@ const Navbar = () => {
                   {item.label}
                 </a>
               ) : (
-                // Usa o Link do Next.js para navegação entre páginas
+                // Usa o Link do Next.js para navegação entre páginas (deve lidar com basePath)
                 <Link
                   href={item.href}
                   className="text-foreground/80 hover:text-primary transition duration-300 font-medium pb-1 border-b-2 border-transparent hover:border-primary/50"
@@ -137,9 +143,11 @@ const Navbar = () => {
             <li key={item.href}>
               {item.type === 'anchor' ? (
                 <a
-                  href={item.href} // Remove a barra inicial para deixar o Next.js/basePath lidar com o prefixo
+                  href={`${basePath}${item.href}`} // Adiciona basePath explicitamente ao href
                   onClick={(e) => {
-                    if (window.location.pathname === '/') {
+                    // Verifica se estamos na página inicial considerando o basePath
+                    const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
+                    if (isHomePage) {
                       e.preventDefault();
                       document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
                     }
