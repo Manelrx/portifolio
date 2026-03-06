@@ -5,8 +5,10 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { BookOpen, ExternalLink, Calendar } from 'lucide-react';
 import ItemDetailModal from './ItemDetailModal';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Courses = ({ items }) => {
+  const { t } = useLanguage();
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openModal = useCallback((item) => setSelectedItem(item), []);
@@ -23,8 +25,8 @@ const Courses = ({ items }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Cursos & Treinamentos</h2>
-          <p className="section-subtitle">Aprendizado contínuo em cibersegurança, redes e tecnologia</p>
+          <h2 className="section-title gradient-text">{t('courses.title')}</h2>
+          <p className="section-subtitle">{t('courses.subtitle')}</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
@@ -45,7 +47,7 @@ const Courses = ({ items }) => {
                 <div className="relative w-full aspect-video bg-background/50 overflow-hidden">
                   <Image
                     src={item.image}
-                    alt={`Certificado ${item.name}`}
+                    alt={`${t('courses.certificateAlt')} ${item.name}`}
                     fill
                     className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -77,7 +79,7 @@ const Courses = ({ items }) => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <ExternalLink className="w-3 h-3" />
-                    Ver Credencial
+                    {t('courses.viewCredential')}
                   </a>
                 )}
               </div>

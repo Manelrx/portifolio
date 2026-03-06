@@ -2,6 +2,7 @@
 title: 'Entendendo e Evitando Ataques de Phishing'
 date: '2024-05-04'
 author: 'Emanuel Araújo'
+lang: 'pt'
 ---
 
 ## O Que é Phishing?

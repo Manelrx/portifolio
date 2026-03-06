@@ -2,6 +2,7 @@
 title: 'Hackers do Bem: Impulsionando a Cibersegurança no Brasil'
 date: '2025-05-05'
 author: 'Emanuel Araújo'
+lang: 'pt'
 ---
 
 ## O Que é o Programa Hackers do Bem?

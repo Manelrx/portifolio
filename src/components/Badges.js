@@ -5,8 +5,10 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Award, ExternalLink } from 'lucide-react';
 import ItemDetailModal from './ItemDetailModal';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Badges = ({ items }) => {
+  const { t } = useLanguage();
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openModal = useCallback((item) => setSelectedItem(item), []);
@@ -23,8 +25,8 @@ const Badges = ({ items }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Badges & Conquistas</h2>
-          <p className="section-subtitle">Reconhecimentos e validações de competências por organizações líderes</p>
+          <h2 className="section-title gradient-text">{t('badges.title')}</h2>
+          <p className="section-subtitle">{t('badges.subtitle')}</p>
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">

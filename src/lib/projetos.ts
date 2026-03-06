@@ -12,11 +12,12 @@ interface ProjetoFrontmatter {
   date: string;
   title: string;
   author?: string;
-  image?: string;  // Imagem principal do projeto
-  tags?: string[]; // Tecnologias usadas, etc.
-  summary?: string; // Resumo para a página de listagem
-  liveUrl?: string; // Link para o projeto online
-  repoUrl?: string; // Link para o repositório no GitHub/GitLab
+  image?: string;
+  tags?: string[];
+  summary?: string;
+  liveUrl?: string;
+  repoUrl?: string;
+  lang?: string;
 }
 
 export function getSortedProjetosData() {
@@ -44,11 +45,11 @@ export function getSortedProjetosData() {
   // Ordena os projetos por data (mais recentes primeiro)
   return allProjetosData.sort((a, b) => {
     if (a.date && b.date) {
-        if (a.date < b.date) {
-            return 1;
-        } else {
-            return -1;
-        }
+      if (a.date < b.date) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
     return 0;
   });

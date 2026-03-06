@@ -3,8 +3,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Experience = ({ items }) => {
+  const { t } = useLanguage();
+
   if (!items || items.length === 0) return null;
 
   return (
@@ -16,8 +19,8 @@ const Experience = ({ items }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Experiência Profissional</h2>
-          <p className="section-subtitle">Trajetória e contribuições em segurança e infraestrutura de TI</p>
+          <h2 className="section-title gradient-text">{t('experience.title')}</h2>
+          <p className="section-subtitle">{t('experience.subtitle')}</p>
         </motion.div>
 
         <div className="relative max-w-3xl mx-auto">

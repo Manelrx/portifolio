@@ -4,8 +4,11 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Star, ExternalLink, ShieldCheck } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Certifications = ({ items }) => {
+  const { t } = useLanguage();
+
   if (!items || items.length === 0) return null;
 
   return (
@@ -17,8 +20,8 @@ const Certifications = ({ items }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Certificações Profissionais</h2>
-          <p className="section-subtitle">Credenciais verificáveis que comprovam expertise em segurança</p>
+          <h2 className="section-title gradient-text">{t('certifications.title')}</h2>
+          <p className="section-subtitle">{t('certifications.subtitle')}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -76,7 +79,7 @@ const Certifications = ({ items }) => {
                     className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
-                    Verificar Certificação
+                    {t('certifications.verify')}
                   </a>
                 )}
               </div>

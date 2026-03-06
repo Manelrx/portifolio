@@ -2,6 +2,7 @@
 title: 'Ransomware: A Ameaça Digital que Sequestra Seus Dados'
 date: '2024-05-04'
 author: 'Emanuel Araújo'
+lang: 'pt'
 ---
 
 ## O Que é Ransomware?

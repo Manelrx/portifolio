@@ -3,8 +3,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Graduation = ({ items }) => {
+  const { t } = useLanguage();
+
   if (!items || items.length === 0) return null;
 
   return (
@@ -16,8 +19,8 @@ const Graduation = ({ items }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Formação Acadêmica</h2>
-          <p className="section-subtitle">Base teórica e prática em Ciência da Computação e Segurança da Informação</p>
+          <h2 className="section-title gradient-text">{t('graduation.title')}</h2>
+          <p className="section-subtitle">{t('graduation.subtitle')}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">

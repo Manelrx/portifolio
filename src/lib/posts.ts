@@ -10,10 +10,11 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 interface PostFrontmatter {
   date: string;
   title: string;
-  author?: string; // Optional author
-  image?: string;  // Optional image
-  tags?: string[]; // Optional tags
-  summary?: string; // Optional summary for the blog list page
+  author?: string;
+  image?: string;
+  tags?: string[];
+  summary?: string;
+  lang?: string;
 }
 
 export function getSortedPostsData() {
@@ -42,11 +43,11 @@ export function getSortedPostsData() {
   return allPostsData.sort((a, b) => {
     // Ensure date exists before comparing
     if (a.date && b.date) {
-        if (a.date < b.date) {
-            return 1;
-        } else {
-            return -1;
-        }
+      if (a.date < b.date) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
     return 0; // Keep order if dates are missing
   });

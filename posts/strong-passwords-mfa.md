@@ -2,6 +2,7 @@
 title: 'A Importância de Senhas Fortes e Autenticação Multifator (MFA)'
 date: '2024-05-04'
 author: 'Emanuel Araújo'
+lang: 'pt'
 ---
 
 ## Por Que Senhas Fracas São um Risco?

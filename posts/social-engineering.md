@@ -2,6 +2,7 @@
 title: 'Engenharia Social: A Arte de Manipular Pessoas'
 date: '2024-05-04'
 author: 'Emanuel Araújo'
+lang: 'pt'
 ---
 
 ## O Que é Engenharia Social?

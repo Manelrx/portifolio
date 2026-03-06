@@ -1,11 +1,12 @@
 // /home/ubuntu/portfolio-profissional/src/app/blog/[slug]/page.tsx
 // Convertido para Server Component para buscar dados no build time
 import Link from "next/link";
-// import { motion } from "framer-motion"; // Removido import direto
-import { MotionDiv } from "@/components/client/motion-div"; // Importa o componente cliente
+import { MotionDiv } from "@/components/client/motion-div";
 import { Calendar, User, ArrowLeft } from "lucide-react";
-import { getPostData, getAllPostIds } from "@/lib/posts"; // Importa funções para buscar dados estaticamente
-import { notFound } from "next/navigation"; // Importa notFound para lidar com posts não encontrados
+import { getPostData, getAllPostIds } from "@/lib/posts";
+import { notFound } from "next/navigation";
+import { BackToBlog, BlogDateFormatter } from "@/components/PageI18nHelpers";
+import { LanguageRedirect } from "@/components/LanguageRedirect";
 
 // Tipagem para os dados do post (ajustada para corresponder ao retorno de getPostData)
 interface PostData {
@@ -69,6 +70,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
   return (
     // Envolve com a tag <main> e remove a prop 'as' do MotionDiv
     <main className="flex min-h-screen flex-col items-center pt-24 pb-16 md:pt-28 md:pb-20 bg-background">
+      <LanguageRedirect currentSlug={slug} basePath="/blog" />
       <MotionDiv
         // as="main" // Removido: A prop 'as' não é suportada pelo MotionDiv simples
         className="container mx-auto px-4 max-w-3xl"
@@ -79,7 +81,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
       >
         <div className="mb-8">
           <Link href="/blog" className="text-primary hover:underline flex items-center gap-1 text-sm">
-            <ArrowLeft size={16} /> Voltar para o Blog
+            <ArrowLeft size={16} /> <BackToBlog />
           </Link>
         </div>
         <header className="mb-8 border-b border-border/50 pb-6">
@@ -93,7 +95,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
             </div>
             <div className="flex items-center gap-1.5">
               <Calendar size={14} />
-              <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' })}</time>
+              <BlogDateFormatter date={post.date} />
             </div>
           </div>
           {post.tags && post.tags.length > 0 && (
@@ -112,7 +114,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={post.image}
-              alt={`Imagem do post ${post.title}`}
+              alt={post.title}
               className="w-full h-full object-cover"
             />
           </div>

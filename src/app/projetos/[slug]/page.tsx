@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { MotionDiv } from "@/components/client/motion-div";
 import { Calendar, User, ArrowLeft, ExternalLink, Code } from "lucide-react";
-import { getProjetoData, getAllProjetoIds } from "@/lib/projetos"; // Importa as funções corretas
+import { getProjetoData, getAllProjetoIds } from "@/lib/projetos";
 import { notFound } from "next/navigation";
+import { BackToProjects, BlogDateFormatter } from "@/components/PageI18nHelpers";
+import { LanguageRedirect } from "@/components/LanguageRedirect";
 
 interface ProjetoData {
   slug: string;
@@ -70,6 +72,7 @@ export default async function ProjetoPage({ params }: { params: any }) {
   // Renderiza o projeto usando os dados buscados no servidor
   return (
     <main className="flex min-h-screen flex-col items-center pt-24 pb-16 md:pt-28 md:pb-20 bg-background">
+      <LanguageRedirect currentSlug={slug} basePath="/projetos" />
       <MotionDiv
         className="container mx-auto px-4 max-w-3xl"
         initial="hidden"
@@ -79,7 +82,7 @@ export default async function ProjetoPage({ params }: { params: any }) {
       >
         <div className="mb-8">
           <Link href="/projetos" className="text-primary hover:underline flex items-center gap-1 text-sm">
-            <ArrowLeft size={16} /> Voltar para Projetos
+            <ArrowLeft size={16} /> <BackToProjects />
           </Link>
         </div>
         <header className="mb-8 border-b border-border/50 pb-6">
@@ -93,7 +96,7 @@ export default async function ProjetoPage({ params }: { params: any }) {
             </div>
             <div className="flex items-center gap-1.5">
               <Calendar size={14} />
-              <time dateTime={projeto.date}>{new Date(projeto.date).toLocaleDateString("pt-BR", { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' })}</time>
+              <BlogDateFormatter date={projeto.date} />
             </div>
           </div>
           {projeto.tags && projeto.tags.length > 0 && (
@@ -105,32 +108,32 @@ export default async function ProjetoPage({ params }: { params: any }) {
               ))}
             </div>
           )}
-          
+
           {/* Links para o projeto online e repositório */}
           {(projeto.liveUrl || projeto.repoUrl) && (
             <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-border/30">
               {projeto.liveUrl && projeto.liveUrl !== '#'
                 && (
-                <a
-                  href={projeto.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-primary hover:underline"
-                >
-                  <ExternalLink size={16} /> Ver Projeto Online
-                </a>
-              )}
+                  <a
+                    href={projeto.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-primary hover:underline"
+                  >
+                    <ExternalLink size={16} /> Live
+                  </a>
+                )}
               {projeto.repoUrl && projeto.repoUrl !== '#'
                 && (
-                <a
-                  href={projeto.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-primary hover:underline"
-                >
-                  <Code size={16} /> Ver Código Fonte
-                </a>
-              )}
+                  <a
+                    href={projeto.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-primary hover:underline"
+                  >
+                    <Code size={16} /> Code
+                  </a>
+                )}
             </div>
           )}
         </header>
@@ -139,7 +142,7 @@ export default async function ProjetoPage({ params }: { params: any }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={projeto.image} // Caminho relativo já tratado pelo assetPrefix
-              alt={`Imagem do projeto ${projeto.title}`}
+              alt={projeto.title}
               className="w-full h-full object-cover"
             />
           </div>

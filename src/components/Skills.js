@@ -3,34 +3,37 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Server, Terminal, Globe, Wrench, Brain } from 'lucide-react';
-
-// Categorize skills by domain
-const categorizeSkill = (skill) => {
-  const securityTerms = ['Segurança', 'EDR', 'Firewall', 'Pentesting', 'Hardening', 'Vulnerabilidade', 'Incidente', 'SIEM', 'Nessus', 'Nmap', 'OwaspZap', 'Wireshark', 'Metasploit', 'Wazuh', 'Graylog', 'Kaspersky', 'IAM'];
-  const networkTerms = ['TCP/IP', 'Rede', 'Cisco', 'VPN', 'MPLS', 'Segmentação'];
-  const infraTerms = ['Windows Server', 'Linux', 'Active Directory', 'Ubuntu', 'Kali'];
-  const devTerms = ['Python', 'PHP', 'Bash', 'Scripting'];
-  
-  if (securityTerms.some(t => skill.includes(t))) {
-    return { category: 'Segurança', icon: <Shield className="w-3.5 h-3.5" />, colorClass: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20 hover:border-cyan-400/40 hover:bg-cyan-500/15' };
-  }
-  if (networkTerms.some(t => skill.includes(t))) {
-    return { category: 'Redes', icon: <Globe className="w-3.5 h-3.5" />, colorClass: 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:border-blue-400/40 hover:bg-blue-500/15' };
-  }
-  if (infraTerms.some(t => skill.includes(t))) {
-    return { category: 'Infraestrutura', icon: <Server className="w-3.5 h-3.5" />, colorClass: 'bg-violet-500/10 text-violet-400 border-violet-500/20 hover:border-violet-400/40 hover:bg-violet-500/15' };
-  }
-  if (devTerms.some(t => skill.includes(t))) {
-    return { category: 'Dev/Scripting', icon: <Terminal className="w-3.5 h-3.5" />, colorClass: 'bg-green-500/10 text-green-400 border-green-500/20 hover:border-green-400/40 hover:bg-green-500/15' };
-  }
-  return { category: 'Ferramentas', icon: <Wrench className="w-3.5 h-3.5" />, colorClass: 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:border-amber-400/40 hover:bg-amber-500/15' };
-};
+import { useLanguage } from '../hooks/useLanguage';
 
 const Skills = ({ skills }) => {
+  const { t } = useLanguage();
+
   const hasTechnical = skills && Array.isArray(skills.technical) && skills.technical.length > 0;
   const hasSoft = skills && Array.isArray(skills.soft) && skills.soft.length > 0;
 
   if (!hasTechnical && !hasSoft) return null;
+
+  // Categorize skills by domain — use translated terms for matching
+  const securityTerms = ['Vulnerability', 'Vulnerabilidade', 'Segurança', 'EDR', 'Firewall', 'Pentesting', 'Hardening', 'Incidente', 'Incident', 'SIEM', 'Nessus', 'Nmap', 'OwaspZap', 'Wireshark', 'Metasploit', 'Wazuh', 'Graylog', 'Kaspersky', 'IAM', 'Log Analysis', 'Análise de Logs'];
+  const networkTerms = ['TCP/IP', 'Rede', 'Network', 'Cisco', 'VPN', 'MPLS', 'Segmentação', 'Segmentation', 'Router', 'Roteador'];
+  const infraTerms = ['Windows Server', 'Linux', 'Active Directory', 'Ubuntu', 'Kali'];
+  const devTerms = ['Python', 'PHP', 'Bash', 'Scripting'];
+
+  const categorizeSkill = (skill) => {
+    if (securityTerms.some(term => skill.includes(term))) {
+      return { category: t('skills.categorySecurity'), icon: <Shield className="w-3.5 h-3.5" />, colorClass: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20 hover:border-cyan-400/40 hover:bg-cyan-500/15' };
+    }
+    if (networkTerms.some(term => skill.includes(term))) {
+      return { category: t('skills.categoryNetworks'), icon: <Globe className="w-3.5 h-3.5" />, colorClass: 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:border-blue-400/40 hover:bg-blue-500/15' };
+    }
+    if (infraTerms.some(term => skill.includes(term))) {
+      return { category: t('skills.categoryInfra'), icon: <Server className="w-3.5 h-3.5" />, colorClass: 'bg-violet-500/10 text-violet-400 border-violet-500/20 hover:border-violet-400/40 hover:bg-violet-500/15' };
+    }
+    if (devTerms.some(term => skill.includes(term))) {
+      return { category: t('skills.categoryDev'), icon: <Terminal className="w-3.5 h-3.5" />, colorClass: 'bg-green-500/10 text-green-400 border-green-500/20 hover:border-green-400/40 hover:bg-green-500/15' };
+    }
+    return { category: t('skills.categoryTools'), icon: <Wrench className="w-3.5 h-3.5" />, colorClass: 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:border-amber-400/40 hover:bg-amber-500/15' };
+  };
 
   // Group technical skills by category
   const grouped = {};
@@ -53,8 +56,8 @@ const Skills = ({ skills }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Habilidades & Competências</h2>
-          <p className="section-subtitle">Domínios técnicos em segurança, infraestrutura, redes e desenvolvimento</p>
+          <h2 className="section-title gradient-text">{t('skills.title')}</h2>
+          <p className="section-subtitle">{t('skills.subtitle')}</p>
         </motion.div>
 
         {/* Technical Skills — Grouped */}

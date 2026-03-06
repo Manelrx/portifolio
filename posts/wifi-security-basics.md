@@ -2,6 +2,7 @@
 title: 'Segurança em Redes Wi-Fi: Protegendo Sua Conexão Doméstica'
 date: '2024-05-04'
 author: 'Emanuel Araújo'
+lang: 'pt'
 ---
 
 ## A Importância da Segurança Wi-Fi

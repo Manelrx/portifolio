@@ -4,23 +4,27 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Menu, X } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
+import LanguageToggle from './LanguageToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   const basePath = '/portifolio';
 
   const navItems = [
-    { id: 'about', href: '#about', label: 'Sobre', type: 'anchor' },
-    { id: 'experience', href: '#experience', label: 'Experiência', type: 'anchor' },
-    { id: 'skills', href: '#skills', label: 'Skills', type: 'anchor' },
-    { id: 'education', href: '#education', label: 'Formação', type: 'anchor' },
-    { id: 'certifications', href: '#certifications', label: 'Certificações', type: 'anchor' },
-    { id: 'courses', href: '#courses', label: 'Cursos', type: 'anchor' },
-    { id: 'blog', href: '/blog', label: 'Blog', type: 'page' },
-    { id: 'projects', href: '/projetos', label: 'Projetos', type: 'page' },
+    { id: 'about', href: '#about', label: t('nav.about'), type: 'anchor' },
+    { id: 'expertise', href: '#expertise', label: t('nav.expertise'), type: 'anchor' },
+    { id: 'security', href: '#security', label: t('nav.security'), type: 'anchor' },
+    { id: 'infrastructure', href: '#infrastructure', label: t('nav.infrastructure'), type: 'anchor' },
+    { id: 'techlab', href: '#techlab', label: t('nav.lab'), type: 'anchor' },
+    { id: 'experience', href: '#experience', label: t('nav.experience'), type: 'anchor' },
+    { id: 'certifications', href: '#certifications', label: t('nav.certifications'), type: 'anchor' },
+    { id: 'blog', href: '/blog', label: t('nav.blog'), type: 'page' },
+    { id: 'projects', href: '/projetos', label: t('nav.projects'), type: 'page' },
   ];
 
 
@@ -77,11 +81,11 @@ const Navbar = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
               <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
                 <Shield className="w-4 h-4 text-primary" />
               </div>
-              <span className="font-bold text-lg gradient-text">
+              <span className="font-bold text-lg gradient-text hidden sm:inline">
                 Emanuel Araújo
               </span>
             </Link>
@@ -94,7 +98,7 @@ const Navbar = () => {
                     <a
                       href={`${basePath}${item.href}`}
                       onClick={(e) => handleAnchorClick(e, item)}
-                      className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                      className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 whitespace-nowrap ${
                         activeSection === item.id
                           ? 'text-primary'
                           : 'text-foreground/60 hover:text-foreground hover:bg-foreground/5'
@@ -113,23 +117,29 @@ const Navbar = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="px-3 py-2 text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/5 rounded-lg transition-all duration-300"
+                      className="px-3 py-2 text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/5 rounded-lg transition-all duration-300 whitespace-nowrap"
                     >
                       {item.label}
                     </Link>
                   )}
                 </li>
               ))}
+              <li className="ml-2">
+                <LanguageToggle />
+              </li>
             </ul>
 
-            {/* Mobile Toggle */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-foreground/5 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            {/* Mobile: Language Toggle + Hamburger */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <LanguageToggle />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-foreground/5 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -153,7 +163,7 @@ const Navbar = () => {
               className="fixed right-0 top-0 bottom-0 w-72 bg-background/95 backdrop-blur-xl border-l border-border/30 z-50 lg:hidden"
             >
               <div className="flex items-center justify-between p-4 border-b border-border/30">
-                <span className="font-bold gradient-text">Menu</span>
+                <span className="font-bold gradient-text">{t('nav.menu')}</span>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-foreground/5 transition-colors"
