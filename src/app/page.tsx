@@ -138,7 +138,7 @@ function HomeContent() {
   ];
 
   // Resolve tab labels using translations
-  const resolveTabs = (tabs) => tabs.map(tab => ({
+  const resolveTabs = (tabs: Array<{ labelKey: string; introKey?: string; intro?: string; [key: string]: unknown }>) => tabs.map(tab => ({
     ...tab,
     label: t(tab.labelKey),
     intro: tab.introKey ? t(tab.introKey) : tab.intro,
