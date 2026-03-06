@@ -1,59 +1,81 @@
-"use client"; // Marca como Client Component para usar Framer Motion
+"use client";
 
-// /home/ubuntu/portfolio-profissional/src/components/Experience.js
 import React from 'react';
-import { motion } from 'framer-motion'; // Importa motion
-
-// Define as variantes de animação
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
-};
+import { motion } from 'framer-motion';
+import { Briefcase, ChevronRight } from 'lucide-react';
 
 const Experience = ({ items }) => {
-  if (!items || items.length === 0) {
-    return null; // Não renderiza a seção se não houver itens
-  }
+  if (!items || items.length === 0) return null;
 
   return (
-    <motion.section
-      id="experience"
-      className="py-12 md:py-16 bg-background w-full" // Fundo principal
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      variants={sectionVariants}
-    >
+    <section id="experience" className="py-20 md:py-28 w-full relative">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 gradient-text">Experiência Profissional</h2>
-        <div className="space-y-8 max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="section-title gradient-text">Experiência Profissional</h2>
+          <p className="section-subtitle">Trajetória e contribuições em segurança e infraestrutura de TI</p>
+        </motion.div>
+
+        <div className="relative max-w-3xl mx-auto">
+          {/* Timeline Line */}
+          <div className="timeline-line" />
+
           {items.map((item, index) => (
-            // Aplica estilo glassmorphism e glow no hover
-            <div
+            <motion.div
               key={index}
-              className="glassmorphism-card p-6 rounded-lg glow-on-hover border-l-4 border-primary"
+              className="relative pl-16 md:pl-0 mb-12 last:mb-0"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
             >
-              {/* O campo 'title' nos dados é 'role', ajustando aqui para consistência */}
-              <h3 className="text-xl font-semibold text-foreground mb-1">{item.role}</h3>
-              <p className="text-md font-medium text-primary mb-2">{item.company}</p>
-              <p className="text-sm text-foreground/70 mb-3">{item.period}</p>
-              {/* Verifica se 'responsibilities' existe e é um array antes de mapear */}
-              {Array.isArray(item.responsibilities) && item.responsibilities.length > 0 ? (
-                <ul className="list-disc list-inside text-foreground/90 space-y-1">
-                  {item.responsibilities.map((resp, i) => (
-                    <li key={i}>{resp}</li>
-                  ))}
-                </ul>
-              ) : item.description ? (
-                // Se 'responsibilities' não existir ou estiver vazio, mas 'description' existir, mostra a descrição
-                <p className="text-foreground/90">{item.description}</p>
-              ) : null /* Não mostra nada se nem responsibilities nem description existirem */}
-            </div>
+              {/* Timeline Dot */}
+              <div className="timeline-dot" style={{ top: '1.5rem' }}>
+                <div className="absolute inset-0 rounded-full animate-glow-pulse" />
+              </div>
+
+              {/* Card */}
+              <div className={`md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:ml-[calc(50%+2rem)]' : 'md:mr-auto'}`}>
+                <div className="premium-card p-6">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Briefcase className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-foreground">{item.role}</h3>
+                      <p className="text-primary text-sm font-medium">{item.company}</p>
+                    </div>
+                  </div>
+
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-mono bg-primary/10 text-primary/80 border border-primary/20 mb-4">
+                    {item.period}
+                  </span>
+
+                  {item.description && (
+                    <p className="text-foreground/70 text-sm mb-3">{item.description}</p>
+                  )}
+
+                  {Array.isArray(item.responsibilities) && item.responsibilities.length > 0 && (
+                    <ul className="space-y-2">
+                      {item.responsibilities.map((resp, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-foreground/80">
+                          <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

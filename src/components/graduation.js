@@ -2,63 +2,63 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap } from 'lucide-react'; // Importa o ícone apropriado
+import { GraduationCap, Calendar } from 'lucide-react';
 
-// Define as variantes de animação
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
-};
-
-// Componente renomeado e ajustado para Formação Acadêmica
 const Graduation = ({ items }) => {
-  if (!items || items.length === 0) {
-    return null; // Não renderiza a seção se não houver itens
-  }
+  if (!items || items.length === 0) return null;
 
   return (
-    <motion.section
-      id="graduation" // Mantém o ID para links de navegação
-      className="py-12 md:py-16 bg-background w-full"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      variants={sectionVariants}
-    >
+    <section id="education" className="py-20 md:py-28 w-full bg-card/30">
       <div className="container mx-auto px-4">
-        {/* Título da seção atualizado */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 gradient-text">Formação Acadêmica</h2>
-        <div className="space-y-8 max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="section-title gradient-text">Formação Acadêmica</h2>
+          <p className="section-subtitle">Base teórica e prática em Ciência da Computação e Segurança da Informação</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {items.map((item, index) => (
-            // Card com estilo glassmorphism e glow
-            <div
+            <motion.div
               key={index}
-              className="glassmorphism-card p-6 rounded-lg glow-on-hover border-l-4 border-primary flex flex-col sm:flex-row sm:items-start gap-4"
+              className="premium-card p-6 shimmer-effect"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
             >
-              {/* Ícone de Graduação */}
-              <div className="flex-shrink-0 text-primary mt-1">
-                <GraduationCap size={24} />
-              </div>
-              {/* Conteúdo da Formação */}
-              <div className="flex-grow">
-                {/* Usa os campos corretos: degree, institution, period, description */}
-                <h3 className="text-xl font-semibold text-foreground mb-1">{item.degree}</h3>
-                <p className="text-md font-medium text-primary mb-2">{item.institution}</p>
-                <p className="text-sm text-foreground/70 mb-3">{item.period}</p>
-                {/* Mostra a descrição se existir */}
+              <div className="relative z-10">
+                {/* Header */}
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-6 h-6 text-accent" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-foreground leading-tight">{item.degree}</h3>
+                    <p className="text-accent text-sm font-medium mt-1">{item.institution}</p>
+                  </div>
+                </div>
+
+                {/* Period */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-mono text-muted-foreground">{item.period}</span>
+                </div>
+
+                {/* Description */}
                 {item.description && (
-                  <p className="text-foreground/90 text-sm">{item.description}</p>
+                  <p className="text-foreground/70 text-sm leading-relaxed">{item.description}</p>
                 )}
-                {/* Remove a lista de 'responsibilities' que não se aplica aqui */}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
 export default Graduation;
-

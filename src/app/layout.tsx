@@ -1,15 +1,18 @@
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Navbar from "../components/Navbar"; 
+import { Inter, JetBrains_Mono } from "next/font/google";
+import Navbar from "../components/Navbar";
+import ScrollProgress from "../components/ScrollProgress";
 import "./globals.css";
 
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Portfólio Profissional", // Título inicial
-  description: "Portfólio gerado por Emanuel", // Descrição inicial
+  title: "Emanuel Araújo | Security Analyst & Infrastructure",
+  description: "Portfólio profissional de Emanuel Araújo — Analista de Segurança, SOC, Infraestrutura e Cibersegurança. Conheça minha experiência, certificações e projetos.",
+  keywords: ["cibersegurança", "segurança da informação", "SOC", "infraestrutura", "pentest", "portfólio"],
 };
 
 export default function RootLayout({
@@ -18,14 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-      {/* A tag <head> é adicionada automaticamente pelo Next.js */}
-      {/* Adiciona padding-top para compensar a altura do navbar fixo */}
-      <body className={`${inter.className} pt-16 md:pt-[60px]`}> {/* Ajuste o padding conforme a altura do seu navbar */}
-        <Navbar /> {/* Adiciona o Navbar aqui */}
+    <html lang="pt-BR" className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${inter.className} antialiased`}>
+        <ScrollProgress />
+        <Navbar />
         {children}
       </body>
     </html>
   );
 }
-

@@ -1,0 +1,58 @@
+﻿node : D:\Dev\portifoli
+o\node_modules\.bin\nex
+t:2
+No linha:1 caractere:1
++ node 
+node_modules/.bin/next 
+build 2>&1 | Out-File 
+-FilePath build_out ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (D:\Dev\portif   
+ ol...les\.bin\next    
+:2:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+basedir=$(dirname 
+"$(echo "$0" | sed -e 
+'s,\\,/,g')")
+          ^^^^^^^
+
+SyntaxError: missing ) 
+after argument list
+    at wrapSafe (node:i
+nternal/modules/cjs/loa
+der:1692:18)
+    at Module._compile 
+(node:internal/modules/
+cjs/loader:1735:20)
+    at Object..js (node
+:internal/modules/cjs/l
+oader:1893:10)
+    at Module.load (nod
+e:internal/modules/cjs/
+loader:1481:32)
+    at Module._load (no
+de:internal/modules/cjs
+/loader:1300:12)
+    at TracingChannel.t
+raceSync (node:diagnost
+ics_channel:328:14)
+    at wrapModuleLoad (
+node:internal/modules/c
+js/loader:245:24)
+    at Module.executeUs
+erEntryPoint [as 
+runMain] (node:internal
+/modules/run_main:154:5
+)
+    at node:internal/ma
+in/run_main_module:33:4
+7
+
+Node.js v24.12.0

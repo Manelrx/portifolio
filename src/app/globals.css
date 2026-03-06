@@ -2,100 +2,348 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Define a fonte principal (Inter já está no projeto via layout.tsx) */
-/* Você pode adicionar uma fonte mono aqui se precisar para código */
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap'); */
-
 @layer base {
   :root {
-    /* Tema Claro (Futurista Suave) - Mantido como opção, mas focaremos no escuro */
-    --radius: 0.5rem;
-    --background-light: 220 20% 98%; /* Branco quase puro */
-    --foreground-light: 225 10% 10%; /* Cinza escuro */
-    --card-light: 220 20% 100%; /* Branco */
-    --card-foreground-light: 225 10% 10%;
-    --popover-light: 220 20% 100%;
-    --popover-foreground-light: 225 10% 10%;
-    --primary-light: 217 91% 60%; /* Azul vibrante */
-    --primary-foreground-light: 0 0% 100%; /* Branco */
-    --secondary-light: 210 15% 96%; /* Cinza muito claro */
-    --secondary-foreground-light: 225 10% 10%;
-    --muted-light: 210 15% 96%;
-    --muted-foreground-light: 215 15% 45%; /* Cinza médio */
-    --accent-light: 210 15% 90%; /* Cinza claro */
-    --accent-foreground-light: 225 10% 10%;
-    --destructive-light: 0 84% 60%;
-    --destructive-foreground-light: 0 0% 100%;
-    --border-light: 215 20% 90%; /* Borda cinza clara */
-    --input-light: 215 20% 90%;
-    --ring-light: 217 91% 60%; /* Azul vibrante para foco */
+    --radius: 0.75rem;
 
-    /* Tema Escuro (Futurista Principal) */
-    --radius: 0.5rem;
-    --background: 225 15% 12%; /* Azul muito escuro / quase preto */
-    --foreground: 210 15% 96%; /* Branco levemente azulado, mais claro */
-    --card: 225 15% 18%; /* Azul escuro um pouco mais claro */
-    --card-foreground: 210 15% 96%; /* Consistent with main foreground */
-    --popover: 225 15% 12%;
+    /* ── Tema Escuro Cyber-Security ── */
+    --background: 222 25% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 222 20% 12%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 222 20% 10%;
     --popover-foreground: 210 20% 95%;
-    --primary: 217 91% 60%; /* Azul elétrico vibrante */
-    --primary-foreground: 210 20% 98%; /* Branco quase puro */
-    --secondary: 217 30% 25%; /* Azul acinzentado escuro */
-    --secondary-foreground: 210 20% 95%;
-    --muted: 217 30% 25%;
-    --muted-foreground: 215 20% 75%; /* Cinza mais claro para melhor contraste */
-    --accent: 217 91% 60%; /* Azul elétrico para destaque */
+
+    --primary: 190 95% 50%;      /* Cyan elétrico */
+    --primary-foreground: 222 25% 8%;
+
+    --secondary: 222 15% 18%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 222 15% 16%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 260 80% 65%;       /* Roxo vibrante */
     --accent-foreground: 210 20% 98%;
-    --destructive: 0 70% 55%; /* Vermelho vibrante */
+
+    --destructive: 0 70% 55%;
     --destructive-foreground: 210 20% 98%;
-    --border: 217 30% 30%; /* Borda azul acinzentada */
-    --input: 217 30% 30%;
-    --ring: 217 91% 70%; /* Azul elétrico mais claro para foco */
 
-    /* Cores de Gráfico (Exemplo) */
-    --chart-1: 217 91% 60%;
-    --chart-2: 180 80% 45%; /* Ciano/Verde */
-    --chart-3: 280 75% 60%; /* Roxo */
-    --chart-4: 0 80% 65%;   /* Vermelho/Laranja */
-    --chart-5: 50 90% 55%;  /* Amarelo/Dourado */
+    --border: 222 15% 18%;
+    --input: 222 15% 18%;
+    --ring: 190 95% 50%;
+
+    /* Cores extras */
+    --cyber: 190 95% 50%;
+    --neon-green: 142 72% 50%;
+    --neon-purple: 260 80% 65%;
+    --surface: 222 20% 14%;
+    --surface-hover: 222 20% 18%;
+
+    /* Charts */
+    --chart-1: 190 95% 50%;
+    --chart-2: 142 72% 50%;
+    --chart-3: 260 80% 65%;
+    --chart-4: 30 90% 55%;
+    --chart-5: 340 75% 55%;
   }
 
-  /* Define o tema escuro como padrão - remova a classe .dark se quiser claro por padrão */
-  /* Ou use um seletor de tema */
-  /* html {
-    color-scheme: dark;
-  } */
-
-  /* Aplica as variáveis do tema escuro diretamente */
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    /* font-family: 'Inter', sans-serif; */ /* Inter já está no layout.tsx */
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
-  /* body já estilizado acima */
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
+  }
 }
 
-/* Estilos adicionais para um toque futurista */
+/* ══════════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ══════════════════════════════════════════ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9999;
+  background: transparent;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)),
+    hsl(var(--neon-purple)),
+    hsl(var(--primary))
+  );
+  background-size: 200% 100%;
+  animation: gradient-shift 3s ease infinite;
+  transform-origin: left;
+  transition: transform 0.1s ease-out;
+}
+
+/* ══════════════════════════════════════════
+   ANIMATED GRID BACKGROUND
+   ══════════════════════════════════════════ */
+.cyber-grid-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+  z-index: 0;
+}
+
+.cyber-grid-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 50% 40% at 50% 30%,
+    hsl(var(--primary) / 0.06) 0%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ══════════════════════════════════════════ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.2); }
+  50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.1); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+
+@keyframes typewriter-cursor {
+  0%, 100% { border-color: hsl(var(--primary)); }
+  50% { border-color: transparent; }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════
+   COMPONENT CLASSES
+   ══════════════════════════════════════════ */
 @layer components {
-  .glassmorphism-card {
-    @apply bg-card/70 backdrop-blur-md border border-border/30 rounded-lg shadow-lg;
+  /* ── Glass Cards ── */
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/40 rounded-xl shadow-lg;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .glow-on-hover {
-    @apply transition-all duration-300 hover:shadow-[0_0_15px_5px_hsl(var(--primary)/0.4)];
+
+  .glass-card:hover {
+    @apply bg-card/80 border-border/60;
+    box-shadow:
+      0 0 0 1px hsl(var(--primary) / 0.1),
+      0 8px 32px hsl(var(--primary) / 0.08),
+      0 2px 8px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
   }
+
+  /* ── Premium Card  ── */
+  .premium-card {
+    @apply relative bg-card/50 backdrop-blur-xl border border-border/30 rounded-2xl overflow-hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .premium-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.05) 0%,
+      transparent 50%,
+      hsl(var(--neon-purple) / 0.05) 100%
+    );
+    transition: opacity 0.5s ease;
+  }
+
+  .premium-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .premium-card:hover {
+    @apply border-primary/30;
+    box-shadow:
+      0 20px 60px hsl(var(--primary) / 0.08),
+      0 4px 16px rgba(0,0,0,0.4);
+    transform: translateY(-4px);
+  }
+
+  /* ── Shimmer Effect ── */
+  .shimmer-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer-effect::after {
+    content: '';
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      hsl(var(--primary) / 0.08) 50%,
+      transparent 60%
+    );
+    transition: opacity 0.3s;
+  }
+
+  .shimmer-effect:hover::after {
+    @apply opacity-100;
+    animation: shimmer 1.5s ease-in-out;
+  }
+
+  /* ── Gradient Text ── */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(210 90% 70%) 40%,
+      hsl(var(--neon-purple)) 100%
+    );
+  }
+
+  .gradient-text-warm {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--neon-green)) 100%
+    );
+  }
+
+  /* ── Section Title ── */
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-base md:text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-12;
+  }
+
+  /* ── Timeline ── */
+  .timeline-line {
+    @apply absolute left-6 md:left-1/2 top-0 bottom-0 w-px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      hsl(var(--primary) / 0.4) 10%,
+      hsl(var(--primary) / 0.4) 90%,
+      transparent
+    );
+  }
+
+  .timeline-dot {
+    @apply absolute left-6 md:left-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background;
+    transform: translate(-50%, 0);
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.5);
+  }
+
+  /* ── Skill Tag ── */
+  .skill-tag {
+    @apply px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-300 cursor-default;
+    @apply bg-surface hover:bg-surface-hover border-border/40 hover:border-primary/40 text-foreground/90;
+  }
+
+  .skill-tag:hover {
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* ── Status Badge ── */
+  .status-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium;
+    @apply bg-neon-green/10 text-green-400 border border-green-500/20;
+  }
+
+  .status-badge .pulse-dot {
+    @apply w-2 h-2 rounded-full bg-green-400;
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  /* ── Floating animation ── */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* ── Glow pulse ── */
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* ── Scan Line ── */
+  .scan-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+    animation: scan-line 8s linear infinite;
   }
 }
 
-
-/* Adiciona estilos base para Embla Carousel */
+/* ══════════════════════════════════════════
+   EMBLA CAROUSEL
+   ══════════════════════════════════════════ */
 .embla {
   overflow: hidden;
 }
@@ -104,25 +352,18 @@
 }
 .embla__slide {
   position: relative;
-  /* flex: 0 0 100%; */ /* O flex-basis será definido nos componentes */
   min-width: 0;
 }
 
-/* Estilos adicionais para um toque futurista */
-@layer components {
-  .glassmorphism-card {
-    @apply bg-card/70 backdrop-blur-md border border-border/30 rounded-lg shadow-lg;
-  }
-  /* Ajuste no glow para ser um pouco mais sutil */
-  .glow-on-hover {
-    @apply transition-all duration-300 hover:shadow-[0_0_12px_3px_hsl(var(--primary)/0.3)];
-  }
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent;
-  }
-  /* Estilo para o modal (se precisar de ajustes específicos) */
-  .glassmorphism-modal {
-     @apply bg-card/80 backdrop-blur-lg border border-border/50 shadow-2xl;
-  }
+/* ══════════════════════════════════════════
+   PROSE/TYPOGRAPHY overrides
+   ══════════════════════════════════════════ */
+.prose {
+  --tw-prose-body: hsl(var(--foreground) / 0.85);
+  --tw-prose-headings: hsl(var(--foreground));
+  --tw-prose-links: hsl(var(--primary));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-code: hsl(var(--primary));
+  --tw-prose-pre-bg: hsl(var(--card));
+  --tw-prose-pre-code: hsl(var(--foreground) / 0.9);
 }
-

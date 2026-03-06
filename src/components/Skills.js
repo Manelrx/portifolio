@@ -1,78 +1,134 @@
-"use client"; // Marca como Client Component para usar Framer Motion
+"use client";
 
-// /home/ubuntu/portfolio-profissional/src/components/Skills.js
 import React from 'react';
-import { motion } from 'framer-motion'; // Importa motion
-import { Cpu, BrainCircuit } from 'lucide-react'; // Ícones para técnica e soft skill
+import { motion } from 'framer-motion';
+import { Shield, Server, Terminal, Globe, Wrench, Brain } from 'lucide-react';
 
-// Define as variantes de animação
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
+// Categorize skills by domain
+const categorizeSkill = (skill) => {
+  const securityTerms = ['Segurança', 'EDR', 'Firewall', 'Pentesting', 'Hardening', 'Vulnerabilidade', 'Incidente', 'SIEM', 'Nessus', 'Nmap', 'OwaspZap', 'Wireshark', 'Metasploit', 'Wazuh', 'Graylog', 'Kaspersky', 'IAM'];
+  const networkTerms = ['TCP/IP', 'Rede', 'Cisco', 'VPN', 'MPLS', 'Segmentação'];
+  const infraTerms = ['Windows Server', 'Linux', 'Active Directory', 'Ubuntu', 'Kali'];
+  const devTerms = ['Python', 'PHP', 'Bash', 'Scripting'];
+  
+  if (securityTerms.some(t => skill.includes(t))) {
+    return { category: 'Segurança', icon: <Shield className="w-3.5 h-3.5" />, colorClass: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20 hover:border-cyan-400/40 hover:bg-cyan-500/15' };
+  }
+  if (networkTerms.some(t => skill.includes(t))) {
+    return { category: 'Redes', icon: <Globe className="w-3.5 h-3.5" />, colorClass: 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:border-blue-400/40 hover:bg-blue-500/15' };
+  }
+  if (infraTerms.some(t => skill.includes(t))) {
+    return { category: 'Infraestrutura', icon: <Server className="w-3.5 h-3.5" />, colorClass: 'bg-violet-500/10 text-violet-400 border-violet-500/20 hover:border-violet-400/40 hover:bg-violet-500/15' };
+  }
+  if (devTerms.some(t => skill.includes(t))) {
+    return { category: 'Dev/Scripting', icon: <Terminal className="w-3.5 h-3.5" />, colorClass: 'bg-green-500/10 text-green-400 border-green-500/20 hover:border-green-400/40 hover:bg-green-500/15' };
+  }
+  return { category: 'Ferramentas', icon: <Wrench className="w-3.5 h-3.5" />, colorClass: 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:border-amber-400/40 hover:bg-amber-500/15' };
 };
 
 const Skills = ({ skills }) => {
-  // Verifica se o objeto skills e as listas technical/soft existem e não estão vazias
-  const hasTechnicalSkills = skills && Array.isArray(skills.technical) && skills.technical.length > 0;
-  const hasSoftSkills = skills && Array.isArray(skills.soft) && skills.soft.length > 0;
+  const hasTechnical = skills && Array.isArray(skills.technical) && skills.technical.length > 0;
+  const hasSoft = skills && Array.isArray(skills.soft) && skills.soft.length > 0;
 
-  if (!hasTechnicalSkills && !hasSoftSkills) {
-    return null; // Não renderiza a seção se não houver nenhuma habilidade
+  if (!hasTechnical && !hasSoft) return null;
+
+  // Group technical skills by category
+  const grouped = {};
+  if (hasTechnical) {
+    skills.technical.forEach(skill => {
+      const { category, icon, colorClass } = categorizeSkill(skill);
+      if (!grouped[category]) {
+        grouped[category] = { skills: [], icon, colorClass };
+      }
+      grouped[category].skills.push(skill);
+    });
   }
 
   return (
-    <motion.section
-      id="skills"
-      className="py-12 md:py-16 bg-card w-full" // Fundo do card
-      initial="hidden"
-      // Remove whileInView e viewport, anima diretamente na montagem
-      animate="visible"
-      // viewport={{ once: true, amount: 0.2 }} // Removido
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      variants={sectionVariants}
-    >
+    <section id="skills" className="py-20 md:py-28 w-full">
       <div className="container mx-auto px-4">
-        {/* Seção de Habilidades Técnicas */}
-        {hasTechnicalSkills && (
-          <div className="mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 gradient-text">Habilidades Técnicas</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
-              {skills.technical.map((skill, index) => (
-                // Aplica estilo glassmorphism e glow no hover
-                <div
-                  key={`tech-${index}`}
-                  className="glassmorphism-card p-4 rounded-lg text-center glow-on-hover flex flex-col items-center justify-center aspect-square"
-                >
-                  <Cpu className="w-8 h-8 mx-auto mb-3 text-primary" />
-                  <p className="font-semibold text-foreground/90 text-sm">{skill}</p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="section-title gradient-text">Habilidades & Competências</h2>
+          <p className="section-subtitle">Domínios técnicos em segurança, infraestrutura, redes e desenvolvimento</p>
+        </motion.div>
+
+        {/* Technical Skills — Grouped */}
+        {hasTechnical && (
+          <div className="max-w-4xl mx-auto space-y-8 mb-16">
+            {Object.entries(grouped).map(([category, data], catIndex) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${data.colorClass.split(' ').slice(0, 2).join(' ')}`}>
+                    {data.icon}
+                  </div>
+                  <h3 className="text-sm font-semibold text-foreground/80 uppercase tracking-wider">{category}</h3>
                 </div>
-              ))}
-            </div>
+                <div className="flex flex-wrap gap-2">
+                  {data.skills.map((skill, skillIndex) => (
+                    <motion.span
+                      key={skill}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all duration-300 cursor-default ${data.colorClass}`}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: skillIndex * 0.03 }}
+                      whileHover={{ y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         )}
 
-        {/* Seção de Soft Skills */}
-        {hasSoftSkills && (
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 gradient-text">Soft Skills</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
+        {/* Soft Skills / Frameworks */}
+        {hasSoft && (
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-7 h-7 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                <Brain className="w-3.5 h-3.5 text-pink-400" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground/80 uppercase tracking-wider">Soft Skills & Frameworks</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
               {skills.soft.map((skill, index) => (
-                // Aplica estilo glassmorphism e glow no hover
-                <div
-                  key={`soft-${index}`}
-                  className="glassmorphism-card p-4 rounded-lg text-center glow-on-hover flex flex-col items-center justify-center aspect-square"
+                <motion.span
+                  key={skill}
+                  className="px-3 py-1.5 rounded-lg text-sm font-medium border transition-all duration-300 cursor-default bg-pink-500/10 text-pink-400 border-pink-500/20 hover:border-pink-400/40 hover:bg-pink-500/15"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.03 }}
+                  whileHover={{ y: -2 }}
                 >
-                  <BrainCircuit className="w-8 h-8 mx-auto mb-3 text-primary" />
-                  <p className="font-semibold text-foreground/90 text-sm">{skill}</p>
-                </div>
+                  {skill}
+                </motion.span>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </motion.section>
+    </section>
   );
 };
 
 export default Skills;
-

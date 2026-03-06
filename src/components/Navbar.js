@@ -1,178 +1,204 @@
-"use client"; // Marca este componente como Client Component
+"use client";
 
-// /home/ubuntu/portfolio-profissional/src/components/Navbar.js
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link'; // Importa o Link do Next.js
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
-  // Define o basePath explicitamente para uso nos links
   const basePath = '/portifolio';
 
   const navItems = [
-    // Links da página inicial (âncoras)
-    { id: 'summary', href: '#summary', label: 'Resumo', type: 'anchor' },
+    { id: 'about', href: '#about', label: 'Sobre', type: 'anchor' },
     { id: 'experience', href: '#experience', label: 'Experiência', type: 'anchor' },
-    { id: 'skills', href: '#skills', label: 'Habilidades', type: 'anchor' },
-    { id: 'courses', href: '#courses', label: 'Cursos', type: 'anchor' },
-    { id: 'badges', href: '#badges', label: 'Badges', type: 'anchor' },
+    { id: 'skills', href: '#skills', label: 'Skills', type: 'anchor' },
+    { id: 'education', href: '#education', label: 'Formação', type: 'anchor' },
     { id: 'certifications', href: '#certifications', label: 'Certificações', type: 'anchor' },
-    // Links para as novas páginas (Next.js Link deve lidar com basePath automaticamente)
-    { id: 'projects', href: '/projetos', label: 'Projetos', type: 'page' },
+    { id: 'courses', href: '#courses', label: 'Cursos', type: 'anchor' },
     { id: 'blog', href: '/blog', label: 'Blog', type: 'page' },
+    { id: 'projects', href: '/projetos', label: 'Projetos', type: 'page' },
   ];
 
-  // Efeito para lidar com o scrollspy e background do navbar
+
   useEffect(() => {
     const handleScroll = () => {
-      // Lógica do Scrollspy (apenas para links âncora)
-      let currentSection = '';
-      const sections = navItems
-        .filter(item => item.type === 'anchor') // Filtra apenas links âncora
-        .map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY;
-      const offset = 150; // Ajuste este valor conforme necessário
+      setScrolled(window.scrollY > 20);
 
-      sections.forEach(section => {
+      const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
+      if (!isHomePage) {
+        setActiveSection('');
+        return;
+      }
+
+      let currentSection = '';
+      const offset = 150;
+      const anchorItems = navItems.filter(item => item.type === 'anchor');
+
+      for (const item of anchorItems) {
+        const section = document.getElementById(item.id);
         if (section) {
-          const sectionTop = section.offsetTop - offset;
-          const sectionBottom = sectionTop + section.offsetHeight;
-          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            currentSection = section.id;
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= offset && rect.bottom > offset) {
+            currentSection = item.id;
           }
         }
-      });
-
-      const firstSection = document.getElementById(navItems.find(item => item.type === 'anchor')?.id ?? '');
-      if (scrollPosition < (firstSection?.offsetTop ?? offset) - offset) {
-        currentSection = '';
       }
-
-      // Verifica se estamos na página inicial considerando o basePath
-      const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
-
-      if (isHomePage) {
-        setActiveSection(currentSection);
-      } else {
-        setActiveSection(''); // Desativa scrollspy em outras páginas
-      }
-
-      // Lógica do background do Navbar
-      setScrolled(window.scrollY > 10);
+      setActiveSection(currentSection);
     };
 
-    // Verifica se estamos no lado do cliente antes de adicionar o listener
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Chama no início
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      // Limpa o listener ao desmontar o componente
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
+  const handleAnchorClick = (e, item) => {
+    const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
+    if (isHomePage) {
+      e.preventDefault();
+      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Executa apenas uma vez no mount
+    setIsOpen(false);
+  };
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-md shadow-lg' : 'bg-transparent shadow-none'}`}>
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo ou Nome - Link para a Home (Next Link lida com basePath) */}
-        <div className="text-xl font-bold">
-          <Link href="/" className="gradient-text">
-            Emanuel Araújo
-          </Link>
+    <>
+      <nav
+        className={`fixed w-full top-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? 'bg-background/70 backdrop-blur-xl border-b border-border/30 shadow-lg shadow-black/10'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                <Shield className="w-4 h-4 text-primary" />
+              </div>
+              <span className="font-bold text-lg gradient-text">
+                Emanuel Araújo
+              </span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <ul className="hidden lg:flex items-center gap-1">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  {item.type === 'anchor' ? (
+                    <a
+                      href={`${basePath}${item.href}`}
+                      onClick={(e) => handleAnchorClick(e, item)}
+                      className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                        activeSection === item.id
+                          ? 'text-primary'
+                          : 'text-foreground/60 hover:text-foreground hover:bg-foreground/5'
+                      }`}
+                    >
+                      {item.label}
+                      {activeSection === item.id && (
+                        <motion.div
+                          layoutId="activeSection"
+                          className="absolute inset-0 bg-primary/10 border border-primary/20 rounded-lg"
+                          style={{ zIndex: -1 }}
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="px-3 py-2 text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/5 rounded-lg transition-all duration-300"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-foreground/5 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+      </nav>
 
-        {/* Menu Desktop */}
-        <ul className="hidden md:flex space-x-6">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              {item.type === 'anchor' ? (
-                <a
-                  href={`${basePath}${item.href}`} // Adiciona basePath explicitamente ao href
-                  onClick={(e) => {
-                    // Verifica se estamos na página inicial considerando o basePath
-                    const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
-                    if (isHomePage) {
-                      e.preventDefault();
-                      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                    }
-                    // Se não estiver na home, o link normal levará para /portifolio/#ancora
-                  }}
-                  className={`transition duration-300 font-medium pb-1 ${activeSection === item.id
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-foreground/80 hover:text-primary border-b-2 border-transparent hover:border-primary/50'}`}
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed right-0 top-0 bottom-0 w-72 bg-background/95 backdrop-blur-xl border-l border-border/30 z-50 lg:hidden"
+            >
+              <div className="flex items-center justify-between p-4 border-b border-border/30">
+                <span className="font-bold gradient-text">Menu</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-foreground/5 transition-colors"
                 >
-                  {item.label}
-                </a>
-              ) : (
-                // Usa o Link do Next.js para navegação entre páginas (deve lidar com basePath)
-                <Link
-                  href={item.href}
-                  className="text-foreground/80 hover:text-primary transition duration-300 font-medium pb-1 border-b-2 border-transparent hover:border-primary/50"
-                >
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        {/* Botão Hamburger (Mobile) */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-foreground/80 hover:text-primary focus:outline-none"
-            aria-label="Abrir menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Menu Mobile (Dropdown) */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden bg-background/90 backdrop-blur-md border-t border-border/50`}>
-        <ul className="flex flex-col items-center py-4 space-y-2">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              {item.type === 'anchor' ? (
-                <a
-                  href={`${basePath}${item.href}`} // Adiciona basePath explicitamente ao href
-                  onClick={(e) => {
-                    // Verifica se estamos na página inicial considerando o basePath
-                    const isHomePage = window.location.pathname === basePath || window.location.pathname === `${basePath}/`;
-                    if (isHomePage) {
-                      e.preventDefault();
-                      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                    }
-                    setIsOpen(false); // Fecha o menu
-                  }}
-                  className={`transition duration-300 font-medium block px-4 py-2 ${activeSection === item.id ? 'text-primary font-semibold' : 'text-foreground/80 hover:text-primary'}`}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  href={item.href}
-                  className="text-foreground/80 hover:text-primary transition duration-300 font-medium block px-4 py-2"
-                  onClick={() => setIsOpen(false)} // Fecha o menu
-                >
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <nav className="p-4 space-y-1">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    {item.type === 'anchor' ? (
+                      <a
+                        href={`${basePath}${item.href}`}
+                        onClick={(e) => handleAnchorClick(e, item)}
+                        className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                          activeSection === item.id
+                            ? 'bg-primary/10 text-primary border border-primary/20'
+                            : 'text-foreground/70 hover:bg-foreground/5 hover:text-foreground'
+                        }`}
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground/70 hover:bg-foreground/5 hover:text-foreground transition-all duration-300"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </motion.div>
+                ))}
+              </nav>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
 export default Navbar;
-

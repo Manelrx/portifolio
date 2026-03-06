@@ -2,74 +2,98 @@
 
 import React from 'react';
 import Image from 'next/image';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose, // Para o botão de fechar
-} from "@/components/ui/dialog"; // Ajuste o caminho se necessário
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ExternalLink } from 'lucide-react';
 
 const ItemDetailModal = ({ item, isOpen, onClose, type }) => {
   if (!item) return null;
 
-  // Determina o conteúdo com base no tipo (badge ou course)
-  const isBadge = type === 'badge';
-  const title = isBadge ? item.name : item.name; // Ajustado para usar 'name' para ambos
-  const imageUrl = item.image;
-  const linkUrl = isBadge ? item.url : item.link;
-  const description = item.description || (isBadge ? `Detalhes sobre a conquista ${title}.` : `Detalhes sobre o curso ${title}.`);
-  const institution = !isBadge ? item.institution : null;
-  const year = !isBadge ? item.year : null;
+  const displayName = item.name || item.title || 'Detalhes';
+  const displayImage = item.image;
+  const displayUrl = item.url || item.link;
+  const displayOrg = item.institution || item.issuer;
+  const displayDate = item.year || item.date;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[525px] bg-card border-border/80 glassmorphism-modal text-foreground">
-        <DialogHeader className="items-center text-center pt-4">
-          {imageUrl && (
-            <div className="w-full max-w-md mb-4 rounded-lg overflow-hidden border border-border/50 bg-muted/30 aspect-video relative"> {/* Dynamic height container */}
-              <Image
-                src={imageUrl}
-                alt={title}
-                layout="fill" // Fill the container
-                objectFit="contain" // Contain image within container
-              />
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {/* Backdrop */}
+          <motion.div
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+
+          {/* Modal */}
+          <motion.div
+            className="relative bg-card/95 backdrop-blur-xl border border-border/40 rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          >
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-lg bg-foreground/5 hover:bg-foreground/10 flex items-center justify-center transition-colors"
+              aria-label="Fechar"
+            >
+              <X className="w-4 h-4 text-foreground/70" />
+            </button>
+
+            {/* Image */}
+            {displayImage && (
+              <div className="relative w-full aspect-video bg-background/50 rounded-t-2xl overflow-hidden">
+                <Image
+                  src={displayImage}
+                  alt={displayName}
+                  fill
+                  className="object-contain p-4"
+                  sizes="(max-width: 512px) 100vw, 512px"
+                />
+              </div>
+            )}
+
+            {/* Content */}
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-foreground mb-2">{displayName}</h3>
+              
+              {displayOrg && (
+                <p className="text-primary text-sm font-medium mb-1">{displayOrg}</p>
+              )}
+
+              {displayDate && (
+                <p className="text-xs font-mono text-muted-foreground mb-4">{displayDate}</p>
+              )}
+
+              {item.description && (
+                <p className="text-foreground/80 text-sm leading-relaxed mb-4">{item.description}</p>
+              )}
+
+              {displayUrl && displayUrl !== '#' && (
+                <a
+                  href={displayUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary border border-primary/20 text-sm font-medium hover:bg-primary/20 transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  {type === 'badge' ? 'Ver Badge' : type === 'certification' ? 'Verificar' : 'Ver Credencial'}
+                </a>
+              )}
             </div>
-          )}
-          <DialogTitle className="text-xl font-semibold gradient-text">{title}</DialogTitle>
-          {institution && <p className="text-sm text-foreground/80">{institution} {year ? `(${year})` : ''}</p>}
-        </DialogHeader>
-        <div className="px-6 py-4">
-          <DialogDescription className="text-sm text-foreground/90 text-center">
-            {description}
-          </DialogDescription>
-        </div>
-        <DialogFooter className="sm:justify-center px-6 pb-4">
-          {linkUrl && linkUrl !== '#' && (
-            <Button asChild variant="outline" className="bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary">
-              <a href={linkUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                {isBadge ? 'Ver Credencial' : 'Ver Certificado/Curso'}
-              </a>
-            </Button>
-          )}
-          <DialogClose asChild>
-            <Button type="button" variant="secondary" className="bg-secondary/50 hover:bg-secondary/70">
-              Fechar
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-        {/* Botão de fechar no canto superior direito (opcional, Dialog já tem overlay click) */}
-        {/* <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </DialogClose> */}
-      </DialogContent>
-    </Dialog>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

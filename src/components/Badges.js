@@ -1,98 +1,73 @@
 "use client";
 
-// /home/ubuntu/portfolio-profissional/src/components/Badges.js
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-// import { Award } from 'lucide-react'; // Ícone de Award removido para simplificar
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-
-// Importar o componente Modal
+import { Award, ExternalLink } from 'lucide-react';
 import ItemDetailModal from './ItemDetailModal';
 
-// Define as variantes de animação
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
-};
-
 const Badges = ({ items }) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start', containScroll: 'trimSnaps' }, [Autoplay({ delay: 4000, stopOnInteraction: false })]); // Alterado stopOnInteraction para false
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const openModal = useCallback((item) => {
-    setSelectedItem(item);
-  }, []);
+  const openModal = useCallback((item) => setSelectedItem(item), []);
+  const closeModal = useCallback(() => setSelectedItem(null), []);
 
-  const closeModal = useCallback(() => {
-    setSelectedItem(null);
-  }, []);
-
-  if (!items || items.length === 0) {
-    return null;
-  }
+  if (!items || items.length === 0) return null;
 
   return (
-    <motion.section
-      id="badges"
-      className="py-12 md:py-16 bg-card w-full overflow-hidden"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      variants={sectionVariants}
-    >
+    <section id="badges" className="py-20 md:py-28 w-full">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 gradient-text">Badges e Conquistas</h2>
-        <div className="embla" ref={emblaRef}>
-          <div className="embla__container flex">
-            {items.map((item, index) => (
-              <div
-                className="embla__slide flex-[0_0_50%] sm:flex-[0_0_33.33%] md:flex-[0_0_25%] lg:flex-[0_0_20%] min-w-0 pl-4"
-                key={index}
-              >
-                <motion.div
-                  className="glassmorphism-card p-4 rounded-lg text-center glow-on-hover flex flex-col items-center justify-center h-full cursor-pointer"
-                  // Removido aspect-square para permitir altura variável baseada no conteúdo
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.4 }}
-                  onClick={() => openModal(item)}
-                  tabIndex={0}
-                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && openModal(item)}
-                >
-                  {/* Container da imagem ajustado */}
-                  <div className="relative w-full h-32 mb-4 flex items-center justify-center"> {/* Mantém altura fixa, mas centraliza a imagem */}
-                    {/* <Award className="absolute inset-0 w-full h-full text-primary/50 z-0" /> */}
-                    <Image
-                      src={item.image}
-                      alt={item.name || 'Badge'}
-                      width={128} // Define uma largura base (era w-32)
-                      height={128} // Define uma altura base (era h-32)
-                      style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }} // Garante que a imagem caiba e mantenha proporção
-                      className="z-10" // Removido rounded-full
-                    />
-                  </div>
-                  <p className="font-semibold text-foreground/90 text-sm mt-1 min-h-[2.5em]">{item.name || 'Badge'}</p> {/* Garante altura mínima para o texto */}
-                </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="section-title gradient-text">Badges & Conquistas</h2>
+          <p className="section-subtitle">Reconhecimentos e validações de competências por organizações líderes</p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+          {items.map((item, index) => (
+            <motion.div
+              key={index}
+              className="group cursor-pointer"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              onClick={() => openModal(item)}
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && openModal(item)}
+            >
+              <div className="glass-card p-4 text-center shimmer-effect h-full flex flex-col items-center justify-center gap-3">
+                <div className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
+                  <Image
+                    src={item.image}
+                    alt={item.name || 'Badge'}
+                    width={96}
+                    height={96}
+                    className="object-contain group-hover:scale-110 transition-transform duration-300"
+                    style={{ maxWidth: '100%', maxHeight: '100%' }}
+                  />
+                </div>
+                <p className="text-xs font-medium text-foreground/80 leading-tight line-clamp-2">
+                  {item.name}
+                </p>
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      {/* Renderiza o Modal */}
       <ItemDetailModal
         item={selectedItem}
         isOpen={!!selectedItem}
         onClose={closeModal}
         type="badge"
       />
-    </motion.section>
+    </section>
   );
 };
 
 export default Badges;
-
